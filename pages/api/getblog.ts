@@ -21,7 +21,7 @@ export default function handler(
   fs.readFile(`dummy/${query.q}.json`, 'utf-8', (err, data) => {
     if (err) {
       return res.status(404).json({
-        "error": "no blog found"
+        "error": "no blog found",
       });
     }
     res.status(200).json(JSON.parse(data))

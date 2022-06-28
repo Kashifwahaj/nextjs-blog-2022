@@ -8,20 +8,29 @@ type Data = {
     data?: JSON;
     error?: string;
     key?: any
-} | string | any
+} | string | any | any[]
 
 
 
-export default function handler(
+export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<Data>
 ) {
-    fs.readdir(`dummy`, (err, data) => {
-        if (err) {
-            return res.status(404).json({
-                "error": "no found"
-            });
+
+    try {
+        const data = await fs.promises.readdir('dummy');
+        let allBlogs: any = [];
+        for (let i = 0; i < data.length; i++) {
+            const fileData = await fs.promises.readFile('dummy/' + data[i], 'utf-8');
+            allBlogs.push(JSON.parse(fileData))
         }
-        res.status(200).json(data);
-    })
+
+        res.status(200).json(allBlogs);
+    } catch (error) {
+        return res.status(404).json({
+            "error": "no found"
+        });
+    }
+   
+  
 }
