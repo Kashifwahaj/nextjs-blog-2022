@@ -1,6 +1,5 @@
-import type { NextPage } from 'next'
+import type { GetStaticProps, NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import Link from 'next/link'
 import Script from 'next/script'
 import { GetServerSideProps } from 'next'
@@ -71,14 +70,13 @@ const Blog: NextPage<props> = ({blogs,error,message}) => {
           </div>
         </section>
 
-        <Image src="/vercel.svg" alt="Vercel Logo" width={200} height={200} />
       </main>
     </div>
   )
 }
 
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
+export const getStaticProps: GetStaticProps = async (context) => {
   try {
 
     const response = await axios.get('http://localhost:3000/api/blogs');
@@ -93,12 +91,37 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     return {
       props: {
         blogs: [],
-        error,
+        error:JSON.stringify(error),
         message: 'No Blog Found'
       }
     }
   }
 
 }
+
+
+
+// export const getServerSideProps: GetServerSideProps = async (context) => {
+//   try {
+
+//     const response = await axios.get('http://localhost:3000/api/blogs');
+//     return {
+//       props: {
+//         blogs: response.data,
+//         message: response.data.length + ' Blog Found'
+//       }
+//     }
+
+//   } catch (error) {
+//     return {
+//       props: {
+//         blogs: [],
+//         error,
+//         message: 'No Blog Found'
+//       }
+//     }
+//   }
+
+// }
 
 export default Blog

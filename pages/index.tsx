@@ -1,6 +1,5 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
 import Script from 'next/script'
 
 const Home: NextPage = () => {
@@ -20,7 +19,8 @@ const Home: NextPage = () => {
           Blog 2022
         </h1>
         <div className="rounded-xl bg-gray-200 p-0.5 shadow-xl">
-        <Image src="/images/homeimg.jpeg" alt="Vercel Logo" className=" rounded-xl"   width={400} height={400} />
+        {/* <Image src="/images/homeimg.jpeg" alt="Vercel Logo" className=" rounded-xl"   width={400} height={400} /> */}
+        <img src="/images/homeimg.jpeg" alt="Vercel Logo" className=" rounded-xl"   width={400} height={400} />
         </div>
       </main>
     </div>
